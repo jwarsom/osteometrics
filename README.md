@@ -54,12 +54,12 @@ Arguments
 
 | Flag | Description | values |
 | --- | --- | --- |
-| --input | The csv input file containing skeletal element metadata and measurements. | |
-| --reference | The csv file containing the skeletal element reference group data  | |
-| --p_method | The variant of z-transform osteometric sorting applied| 'uweightedZ', 'effectSizeZ', 'standardErrorZ'|
-| --alpha | Alpha level for z-transform osteometric sorting | default: 0.1 |
-| --loocv | Perform leave-one-out cross validation of the reference data| default: false | 
-|--time | Report runtime | default: false |
+|input | The csv input file containing skeletal element metadata and measurements. | |
+|reference | The csv file containing the skeletal element reference group data  | |
+|p_method | The variant of z-transform osteometric sorting applied| 'uweightedZ', 'effectSizeZ', 'standardErrorZ'|
+|alpha | Alpha level for z-transform osteometric sorting | default: 0.1 |
+|loocv | Perform leave-one-out cross validation of the reference data| default: false | 
+|time | Report runtime | default: false |
 
 Input File Format:
 The z-transform program is expect the input and reference csv files to have the following fields
