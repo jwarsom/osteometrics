@@ -25,7 +25,7 @@ on a Linux/Mac OS machine.
 
 1. Clone this repo.
 ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/jwarsom/osteometrics.git
    ```
 2. Create virtual environment (recommended) (https://docs.python.org/3/library/venv.html#)
 ```sh
@@ -47,7 +47,7 @@ pip install -e . -r requirements.txt
 ## Usage
 
 ```sh
-   python /path/to/osteometrics/osteometric_sorting.py 
+   python /path/to/osteometrics/osteometrics/osteometric_sorting.py 
    ```
 
 Arguments
