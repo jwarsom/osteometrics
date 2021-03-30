@@ -42,7 +42,9 @@ source /path/to/new/virtual/environment/bin/activate
 cd /path/to/osteometrics
    ```
 5. Install the osteometric sorting z-transform program
+```sh
 pip install -e . -r requirements.txt
+   ```
    
 ## Usage
 
@@ -62,7 +64,7 @@ Arguments
 |time | Report runtime | default: false |
 
 Input File Format:
-The z-transform program is expect the input and reference csv files to have the following fields
+The z-transform program is expecting the input and reference csv files to have the following fields
 
 | Field | Description | values |
 | --- | --- | --- |
