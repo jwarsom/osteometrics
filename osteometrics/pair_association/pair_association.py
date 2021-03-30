@@ -1,7 +1,7 @@
 import statsmodels.api as sm
 from statsmodels.sandbox.regression.predstd import wls_prediction_std
 import numpy as np
-from osteometrics.utils.impute import impute_data
+from utils.impute import impute_data
 
 
 class PairAssociation:

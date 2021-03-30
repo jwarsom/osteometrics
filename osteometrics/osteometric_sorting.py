@@ -1,7 +1,7 @@
-from osteometrics.utils.util import *
+from utils.util import *
 from sklearn.model_selection import LeaveOneOut
-from osteometrics.pair_matching.pair_matching import PairMatch
-from osteometrics.pair_association.pair_association import PairAssociation
+from pair_matching.pair_matching import PairMatch
+from pair_association.pair_association import PairAssociation
 from itertools import combinations
 import pandas as pd
 import numpy as np
@@ -19,18 +19,21 @@ def main(args=None):
     parser.add_argument("--reference", type=str, help="The reference data", required=True, action="store")
 
     parser.add_argument("--p_method", type=str,
-                        choices=['uweightedZ', 'effectSizeZ', 'standardErrorZ', 'sumTTest', 'absTTest', 'sumTTest_wMean'],
+                        choices=['uweightedZ', 'effectSizeZ', 'standardErrorZ', ], #'sumTTest', 'absTTest', 'sumTTest_wMean'], # TOBE implemented
                         help="Methods for osteometric sorting pair matching", action="store")
 
-    parser.add_argument("--a_method", type=str,
-                        choices=['sumLRegression'],
-                        help="Method for  osteometric sorting association matching", action="store")
 
-    parser.add_argument("--alpha_p_method", type=float, help="Minimum p-value for pair-matching: default 0.1",
+    # To be further implemented
+    # parser.add_argument("--a_method", type=str,
+    #                    choices=['sumLRegression'],
+    #                    help="Method for  osteometric sorting association matching", action="store")
+
+    parser.add_argument("--alpha", type=float, help="Minimum p-value for pair-matching: default 0.1",
                         default=.1, action="store")
 
-    parser.add_argument("--alpha_a_method", type=float, help="Minimum p-value for association matching: default 0.1",
-                        default=.1, action="store")
+    # To be further implemented
+    # parser.add_argument("--alpha_a_method", type=float, help="Minimum p-value for association matching: default 0.1",
+    #                    default=.1, action="store")
 
     parser.add_argument("--loocv", help="Perform leave-one-out cross validation of the reference data",
                         action="store_true")
@@ -135,7 +138,7 @@ def main(args=None):
                     results['Element'] = element
                     results['Method'] = args.p_method
                     results['Excluded'] = 'Yes'
-                    results.loc[results['Pvalue'] >= args.alpha_p_method, 'Excluded'] = 'No'
+                    results.loc[results['Pvalue'] >= args.alpha, 'Excluded'] = 'No'
 
                     results.merge()
                     results.to_csv(f, sep='\t', index=False)
@@ -181,7 +184,7 @@ def main(args=None):
 
                         results.insert(3, 'Method', args.p_method)
                         results.insert(5, 'Excluded', 'Yes')
-                        results.loc[(results['Pvalue'] >= args.alpha_p_method) | (pd.isnull(results['Pvalue'])),
+                        results.loc[(results['Pvalue'] >= args.alpha) | (pd.isnull(results['Pvalue'])),
                                     'Excluded'] = 'No'
 
                         if info.shape[1] > 1:
@@ -260,7 +263,7 @@ def main(args=None):
                                  x.iloc[train_index][measurement_keys1],
                                  y.iloc[test_index_y][measurement_keys2],
                                  y.iloc[train_index][measurement_keys2],
-                                 x.iloc[test_index_x]['Id'], y.iloc[test_index_y]['Id'], args.alpha_a_method)
+                                 x.iloc[test_index_x]['Id'], y.iloc[test_index_y]['Id'], args.alpha)
 
                             result_list.append(iteration_result)
                 else:
@@ -274,7 +277,7 @@ def main(args=None):
                     results['Element1'] = key1
                     results['Element2'] = key2
                     results['Method'] = args.a_method
-                    results['Alpha'] = args.alpha_a_method
+                    results['Alpha'] = args.alpha
                     results.to_csv(f, sep='\t', index=False)
 
     if args.a_method and args.input:
@@ -338,7 +341,7 @@ def main(args=None):
                             results['Element1'] = key1
                             results['Element2'] = key2
                             results['Method'] = args.a_method
-                            results['Alpha'] = args.alpha_a_method
+                            results['Alpha'] = args.alpha
                             results.to_csv(f, sep='\t', index=False)
                         else:
                             print("Left and/or Right test sets have zero records. Skipping:", key1, key2)
